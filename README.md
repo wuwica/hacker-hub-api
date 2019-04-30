@@ -4,7 +4,6 @@
 
 1. Follow the instructions to [install Laravel 5.8](https://laravel.com/docs/5.8)
 2. Make sure that you have a local MySQL database configured
-- (I'm using MySQL 5.7 (^8.0 won't work!) and Sequel Pro)
 
 ## Usage
 
@@ -48,13 +47,16 @@ php artisan serve
 - Laravel has a ton of tutorials and really great documentation!
 Check out [Laracasts](https://laracasts.com/series/laravel-from-scratch-2018) and the [Laravel Documentation](https://laravel.com/docs/5.8) (or consult my good friend Stack Overflow!) if you ever get stuck
 
-- I use [Postman](https://www.getpostman.com/) for testing API routes - particularly useful for POSTs!
+- I use [Postman](https://www.getpostman.com/) for testing API routes
 
-## Change Log
-- Apr 14: Created the User model and controller, added routes to retrieve/create/update/delete users
+- I'm using MySQL 5.7 (^8.0 won't work!) and Sequel Pro
+
+## Changelog
+- Apr 14: Created the User model and controller, added corresponding REST endpoints
 
 ## Minor TODOs bc I have a tendency to forget things:
 - Add validation (ie store DOB as Carbon object)
 - Do not store password in table!!!
+- Figure out what other fields we want to save for Users
 
-**Major To-dos in the Google Doc in the Technology folder**
+_Major To-dos in the Google Doc in the Technology folder_
