@@ -2,42 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use App\Http\Repositories\EmailRepo;
+use App\Http\Requests\CreateUser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // Retrieve a user by ID
-    public function show($id)
+    /**
+     * Retrieve the authenticated User model.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show()
     {
         try {
-            $user = User::where('id', $id)->firstOrFail();
+            $user = auth()->user();
         }
 
         catch(\Exception $e) {
-            return response('User not found.', 404);
+            return response()->json("Unable to retrieve user.", 400);
         }
+        return response()->json($user, 200);
+    }
+
+    /**
+     * Update the logged in User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function edit(Request $request)
+    {
+        $loggedInUser = Auth::user();
+
+        $user = User::where('id', $loggedInUser->id)->first()->update($request->all());
+        $user = User::where('id', $loggedInUser->id)->first();
 
         return response()->json($user, 200);
-
-    }
-
-    // Create or update
-    public function create(Request $request)
-    {
-        // add request validation (ie make DOB a carbon object)
-        User::updateOrCreate($request->all());
-        return response()->json([
-            "users" => User::all()
-        ], 200);
-    }
-
-    // Delete a user by ID
-    public function destroy($id)
-    {
-        User::destroy($id);
-        return response()->json([
-            "users" => User::all()
-        ], 200);
     }
 }

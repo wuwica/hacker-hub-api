@@ -11,12 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::post('login', 'AuthController@login');
 
-Route::get('/user/{id}', 'UserController@show');
-
-Route::post('/user', 'UserController@create');
-
-Route::delete('/user/{id}', 'UserController@destroy');
+// Route::post('register', 'AuthController@register');
