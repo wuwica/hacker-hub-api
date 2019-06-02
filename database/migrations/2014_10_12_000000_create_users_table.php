@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('Users', function (Blueprint $table) {
             $table->bigIncrements('id')->unqiue();
             $table->string('first_name');
             $table->string('last_name');
@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration
                 'sponsor-4',
                 'sponsor-5'
                 ])->default('hacker');
+            $table->boolean('is_applied')->default(false);
+            $table->boolean('confirmed_attending')->default(false);
             $table->string('phone_number');
             $table->json('dietary_restrictions')->default(null);
             $table->enum('shirt_size', ['S', 'M', 'L', 'XL']);
@@ -48,6 +50,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('Users');
     }
 }

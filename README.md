@@ -52,11 +52,12 @@ Check out [Laracasts](https://laracasts.com/series/laravel-from-scratch-2018) an
 - I'm using MySQL 5.7 (^8.0 won't work!) and Sequel Pro
 
 ## Changelog
-- Apr 14: Created the User model and controller, added corresponding REST endpoints
+- Apr 14: (Dunja) Created the User model and controller, added corresponding REST endpoints
+- Apr 30: (Dunja) Updated User model and CRUD functions, added Team model, JWT generation and started working on integration with SendGrid
+- June 2: (Dunja) Refactored and restructured a bunch of things, tested routes, added Application model & endpoints
 
 ## Minor TODOs bc I have a tendency to forget things:
 - Add validation (ie store DOB as Carbon object)
 - Do not store password in table!!!
-- Figure out what other fields we want to save for Users
 
 _Major To-dos in the Google Doc in the Technology folder_

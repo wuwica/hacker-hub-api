@@ -20,15 +20,15 @@ class TeamController extends Controller
 
         // Check that user is on a team
         if (!$user->team) {
-            return;
+            return response()->json(null, 200);
         }
 
         // Find all the team members
-        $team = Team::where('team_name', $user->team);
+        $team = Team::where('team_name', $user->team)->firstOrFail();
         $members = self::list_members($team->members);
 
         $my_team = [
-            "team name" => $team->name,
+            "team_name" => $team->team_name,
             "members" => $members
         ];
 
@@ -49,7 +49,8 @@ class TeamController extends Controller
 
             $all_teams[] =  [
                 "name" => $team->team_name,
-                "members" => $members
+                "members" => $members,
+                "table number" => $team->table_number
             ];
         }
         return response()->json([
@@ -78,17 +79,28 @@ class TeamController extends Controller
                 ]);
                 $user->team = $team->team_name;
                 $user->save();
-                return response()->json($team, 200);
+
+                return response()->json([
+                    'Team name' => $team->team_name,
+                    'Members' => $team->members,
+                    'Table number' => $team->table_number
+                ], 200);
             }
 
-            // Join team if there are < 4 members and you're not already on it
-            else if (count($team->members) < 4 && !in_array($user->id, $team->members)) {
+            // Join team if there are < 4 members
+            else if (count($team->members) < 4) {
                 $new_members = $team->members;
                 array_push($new_members, $user->id);
                 $team->members = $new_members;
                 $team->save();
                 $user->team = $team;
-                return response()->json($team, 200);
+                $user->save();
+
+                return response()->json([
+                    'Team name' => $team->team_name,
+                    'Members' => self::list_members($team->members),
+                    'Table number' => $team->table_number
+                ], 200);
             }
         }
         return response()->json('Unable to join team.', 400);
@@ -104,12 +116,10 @@ class TeamController extends Controller
 
         // If the user is a part of a team, leave the team
         if ($user->team) {
-            $team = Team::where('team_name', $user->team)->first();
+            $team = Team::where('team_name', $user->team)->firstOrFail();
             $new_members = $team->members;
 
-            $key = array_search($user->id, $new_members);
-            unset($new_members[$key]);
-            $team->members = $new_members;
+            $team->members = array_diff($new_members, array($user->id));
             $team->save();
 
             $user->team = null;
@@ -131,7 +141,9 @@ class TeamController extends Controller
         $members_array = [];
         foreach ($member_ids as $member_id) {
             $user = User::where('id', $member_id)->first();
-            array_push($members_array, $user->name());
+            array_push($members_array, [
+                "id" => $member_id,
+                "name" => $user->name()]);
         }
         return $members_array;
     }

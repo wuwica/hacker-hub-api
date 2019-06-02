@@ -4,27 +4,62 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 
 use App\User;
 
 class AuthController extends Controller
 {
     /**
-     * Create a new AuthController instance.
+     * Register a new user, return than user instance along with a jwt
+     *      TODO: validate the request
      *
-     * @return void
+     * @param Illuminate\Http\Request $request the request
+     *
+     * @return \Illuminate\Http\JsonResponse the response
      */
-    public function __construct()
+    public function register(Request $request)
+    // public function register(UserRequest $request) // Validate request!!
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        try {
+            // $data = self::validated($request);
+            $user = User::create($request->all());
+            $user->fill([
+                'password' => Hash::make($request->get('password'))
+            ])->save();
+        } catch (QueryException $e) {
+            // Either user with that email already exists, or a field is missing or...
+            return response()->json("Unable to create user.", 400);
+        }
+
+        // Send Confirm Account email
+        // try {
+        //     EmailRepo::confirmAccount($user->id);
+        // } catch (Exception $e) {
+        //     return response()->json('Failed to send email', 400);
+        // }
+
+        $credentials = [
+            'email' => $request->get('email'),
+            'password' => $request->get('password')
+        ];
+
+        $token = Auth::attempt($credentials);
+        return response()->json([
+            $user,
+            $this->respondWithToken($token)
+        ], 200);
     }
 
     /**
      * Get a JWT via given credentials.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Illuminate\Http\Request $request the request
+     *
+     * @return \Illuminate\Http\JsonResponse the response
      */
     public function login(Request $request)
     {
@@ -32,8 +67,6 @@ class AuthController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password')
         ];
-
-        // return response(User::where('password', 'password')->get());
 
         if (!$token = Auth::attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -56,16 +89,6 @@ class AuthController extends Controller
             return response()->json('Error confirming account', 400);
         }
         return response()->json('Successfully confirmed account', 200);
-    }
-
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
     }
 
     /**

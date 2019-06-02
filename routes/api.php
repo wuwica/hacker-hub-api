@@ -15,34 +15,34 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'AuthController@login');
 
-Route::post('register', 'UserController@register');
-
-// can access only when logged in
+Route::post('register', 'AuthController@register');
+/* Can access only when logged in */
 Route::group(['middleware' => 'jwt.verify'], function () {
     /** Account stuff */
-        Route::post('logout', 'AuthController@logout');
-        Route::post('refresh', 'AuthController@refresh');
-        Route::post('me', 'AuthController@me');
-        Route::post('change-password', 'AuthController@changePassword');
+    Route::get('logout', 'AuthController@logout');
+    Route::get('refresh', 'AuthController@refresh');
+    Route::post('change-password', 'AuthController@changePassword');
 
-        /** Users */
-        Route::get('user/{id}', 'UserController@show');
-        Route::get('users', 'UserController@all')->middleware('isStaff');
-        // Route::post('user', 'UserController@create');
-        Route::patch('user', 'UserController@edit');
-        // Route::delete('user/{id}', 'UserController@destroy')->middleware('isExec');
+    /** Users */
+    Route::get('user', 'UserController@show');
+    Route::patch('user', 'UserController@edit');
 
-        /** Teams */
-        Route::get('teams', 'TeamController@list');
-        Route::get('team', 'TeamController@my_team');
-        Route::post('team/join', 'TeamController@join');
-        Route::get('team/leave', 'TeamController@leave');
+    /** Teams */
+    Route::get('teams', 'TeamController@list');
+    Route::get('team', 'TeamController@my_team');
+    Route::post('team/join', 'TeamController@join');
+    Route::post('team/leave', 'TeamController@leave');
 
-        /** Applications */
-        Route::group(['middleware' => 'isExec'],
-            function() {
-                Route::get('applications', 'ApplyController@list');
-                Route::get('application/{app_id}', 'ApplyController@show');
-                Route::post('application/{app_id}', 'ApplyController@update');
-        });
+    /** Applications */
+    Route::group(['middleware' => 'isHacker'], function() {
+        Route::get('hacker/application', 'HackerApplicationController@show');
+        Route::post('hacker/application', 'HackerApplicationController@updateOrCreate');
+    });
+    Route::group(['middleware' => 'isExec'], function() {
+        Route::get('exec/applications', 'ExecApplicationController@list');
+        Route::patch('exec/application/{user_id}', 'ExecApplicationController@accept');
+    });
+    Route::group(['middleware' => 'isSponsor'], function() {
+        Route::get('sponsor/applications', 'ExecApplicationController@sponsor_list');
+    });
 });

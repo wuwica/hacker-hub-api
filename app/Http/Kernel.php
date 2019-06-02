@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'isExec' => \App\Http\Middleware\IsExec::class,
+        'isHacker' => \App\Http\Middleware\IsHacker::class, // ie not a hacker
         'isStaff' => \App\Http\Middleware\IsStaff::class, // ie not a hacker
         'jwt.verify' => \App\Http\Middleware\AddJWTToRequest::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,

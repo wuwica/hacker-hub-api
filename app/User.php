@@ -11,7 +11,7 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    protected $table = 'users';
+    protected $table = 'Users';
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +25,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'account_confirmed',
         'role',
+        'is_applied', // bool
+        'confirmed_attending', // boolean
         'phone_number',
         'dietary_restrictions',
         'shirt_size',
@@ -84,5 +86,10 @@ class User extends Authenticatable implements JWTSubject
                 'role' => $this->role
             ]
         ];
+    }
+
+    public function application()
+    {
+        return $this->hasOne('App\Application');
     }
 }
