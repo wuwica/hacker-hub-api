@@ -59,5 +59,6 @@ Check out [Laracasts](https://laracasts.com/series/laravel-from-scratch-2018) an
 ## Minor TODOs bc I have a tendency to forget things:
 - Add validation (ie store DOB as Carbon object)
 - Do not store password in table!!!
+- Figure out what other fields we want to save for Users
 
 _Major To-dos in the Google Doc in the Technology folder_
