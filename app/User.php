@@ -25,6 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'password',
         'account_confirmed',
         'role',
+        'application_id',
         'is_applied', // bool
         'confirmed_attending', // boolean
         'phone_number',

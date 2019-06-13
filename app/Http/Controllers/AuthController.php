@@ -32,6 +32,7 @@ class AuthController extends Controller
             ])->save();
         } catch (QueryException $e) {
             // Either user with that email already exists, or a field is missing or...
+            return response()->json($e->getMessage());
             return response()->json("Unable to create user.", 400);
         }
 

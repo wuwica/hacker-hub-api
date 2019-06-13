@@ -50,7 +50,6 @@ services:
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     volumes:
-      - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
@@ -59,7 +58,3 @@ services:
 networks:
   app-network:
     driver: bridge
-#Volumes
-volumes:
-  dbdata:
-    driver: local
