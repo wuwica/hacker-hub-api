@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
                 'sponsor-4',
                 'sponsor-5'
                 ])->default('hacker');
+            $table->integer('application_id')->nullable();
             $table->boolean('is_applied')->default(false);
             $table->boolean('confirmed_attending')->default(false);
             $table->string('phone_number');

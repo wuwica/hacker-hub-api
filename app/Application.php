@@ -31,4 +31,9 @@ class Application extends Model
         'question_2',
         'question_3'
     ];
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
 }
