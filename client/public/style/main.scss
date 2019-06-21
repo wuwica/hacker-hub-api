@@ -1,0 +1,97 @@
+$goldenColour: #ffc107;
+$titleSize: 7vw;
+
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+a {
+  color: purple;
+}
+
+a:hover {
+  text-decoration: none;
+  font-weight: none;
+  color: #4B0082;
+}
+
+.faq-tab {
+  color: black;
+  background-color: #F5F5F5;
+
+}
+
+.faq-tab:hover {
+  text-decoration: none;
+  font-weight: none;
+  color: #4B0082;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+}
+
+.top-buffer-40 {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.top-buffer-100 {
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
+
+.image {
+  max-width: 100%;
+  height: auto;
+
+  &.height450 {
+    height: 450px;
+  }
+
+  &.height24 {
+    height: 24px;
+  }
+}
+
+.title {
+  font-size: $titleSize;
+}
+
+.footer {
+  width: 100%;
+  background-color: #E7E7E7
+}
+
+.paddingTop10 {
+  padding-top: 10vh;
+}
+
+.margin10 {
+  margin: 10vh;
+}
+
+.goldenButton {
+  background-color: $goldenColour;
+}
+
+.height50 {
+  height: 50px;
+}
+
+.height20vh {
+  height: 20vh;
+}
+
+.marginTop20 {
+  margin-top: 20vh;
+}
+
+.marginTop5 {
+  margin-top: 5vh;
+}
+
+.marginTop10 {
+  margin-top: 10vh;
+}
