@@ -1,7 +1,7 @@
 FROM node:10.16.0-alpine
 
 # set working directory
-RUN MKDIR /app
+RUN mkdir /app
 WORKDIR /app
 
 # add `/app/node_modules/.bin` to $PATH

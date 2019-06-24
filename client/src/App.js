@@ -2,24 +2,19 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import StaticSite from './staticHTMLsite'
+import LoginPage from './loginpages'
 import axios from 'axios'
 
-const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8080',
-  timeout: 1000,
-  headers: {"Content-Type": "application/x-www-form-urlencoded",}
-});
-
-function Index() {
-  return <StaticSite></StaticSite>;
+function Static() {
+  return <StaticSite
+  />;
 }
 
-function About() {
-  return <h2>About</h2>;
-}
-
-function Users() {
-  return <h2>Users</h2>;
+function Register() {
+  return (
+    <Register 
+    />
+  );
 }
 
 class App extends React.Component {
@@ -46,15 +41,16 @@ class App extends React.Component {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/about/">About</Link>
+                <Link to="/register/">Register</Link>
               </li>
               <li>
-                <Link to="/users/">Users</Link>
+                <Link to="/login/">Login</Link>
               </li>
             </ul>
           </nav>
 
-          <Route path="/" exact component={Index} />
+          <Route path="/" exact component={Static} />
+          <Route path="/login" exact component={LoginPage} />
           
         </div>
       </Router>
