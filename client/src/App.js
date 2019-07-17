@@ -2,8 +2,8 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import StaticSite from './staticHTMLsite'
-import LoginPage from './loginpages'
-import axios from 'axios'
+import LoginPage from './loginPage/loginpages'
+import RegisterPage from './registerPage/registerpages'
 
 function Static() {
   return <StaticSite
@@ -19,16 +19,6 @@ function Register() {
 
 class App extends React.Component {
   componentDidMount(){
-    axios.post('http://127.0.0.1:8080/login', {
-      email: 'sponsor@sponsor.com',
-      password: 'sponsor'
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
   
   render(){
@@ -51,6 +41,7 @@ class App extends React.Component {
 
           <Route path="/" exact component={Static} />
           <Route path="/login" exact component={LoginPage} />
+          <Route path="/register" exact component={RegisterPage} />
           
         </div>
       </Router>
