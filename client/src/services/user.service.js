@@ -14,7 +14,7 @@ function login(email, password) {
         password: password
     }
     return new Promise((resolve, reject) => {
-      axios.post('http://127.0.0.1:8080/login', request)
+      axios.post('http://127.0.0.1:8080/login', request).then(handleResponse)
       .then( (response) => {
         if (response.data){
           response.data.email = email
@@ -58,35 +58,32 @@ function registerHacker(firstname,lastname,email,password,phonenumber,diet,size,
     'pronoun': pronoun,// string
     'dob': dob// date
   }
-  return new Promise((resolve, reject) => {
-    axios.post('http://127.0.0.1:8080/login', request)
-    .then( (response) => {
+  axios.post('http://127.0.0.1:8080/login', request)
+    .then(handleResponse).then( (response) => {
       if (response.data){
         response.data.email = email
         localStorage.setItem('goldenHackLogin', JSON.stringify(response.data))
       }
-      resolve(response);
+      return response;
     })
     .catch((error) => {
-      reject(error);
+      return error;
     })
-  })
+  
 }
 
 function handleResponse(response) {
-    return response.text().then(text => {
-        const data = text && JSON.parse(text);
-        if (!response.ok) {
-            if (response.status === 401) {
-                // auto logout if 401 response returned from api
-                logout();
-                window.location.reload(true);
-            }
-
-            const error = (data && data.message) || response.statusText;
-            return Promise.reject(error);
+  return new Promise((resolve,reject) => {
+    const data = response;
+    if (!response.statusText == 'ok') {
+        if (response.status === 401) {
+            // auto logout if 401 response returned from api
+            logout();
+            window.location.reload(true);
         }
-
-        return data;
-    });
+        const error = (data && data.message) || response.statusText;
+        reject(error);
+    }
+    resolve(data);
+  });
 }

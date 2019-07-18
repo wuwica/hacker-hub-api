@@ -1,5 +1,6 @@
 import React from "react";
 import { userService } from '../services/user.service';
+import { Redirect } from "react-router-dom";
 //import "./login.css";
 
 class LoginPage extends React.Component {
@@ -10,7 +11,9 @@ class LoginPage extends React.Component {
       email: "",
       password: "",
       submitted: false,
-      loading: false
+      loading: false,
+      failed: false,
+      loggedIn: false,
     };
   }
 
@@ -24,10 +27,10 @@ class LoginPage extends React.Component {
     });
   };
 
-  handleSubmit = async (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
-    this.setState({ submitted: true });
+    this.setState({ submitted: true,failed: false });
     const { email, password, returnUrl } = this.state;
 
     // stop here if form is invalid
@@ -36,21 +39,42 @@ class LoginPage extends React.Component {
     }
 
     this.setState({ loading: true });
-    var test = await userService.login(email, password);
-    console.log(test)
+    userService.login(email, password).then(()=>{  
+      this.setState({
+        submitted: false,
+        loading: false,
+        loggedIn: true,
+        failed: false
+      });
+    }).catch(()=>{
+      this.setState({
+        submitted: false,
+        loading: false,
+        failed: true
+      });
+    });
+
 }
 
   render() {
     return (
-      <div className="Login">
+      this.state.loggedIn ? 
+      (<Redirect to="/"/>) 
+      :
+      (<div className="Login">
         <form onSubmit={this.handleSubmit}>
             email <br />
           <input id="email" type="email" onChange={this.handleChange}></input><br/>
             password <br />
           <input id="password" type="password" onChange={this.handleChange}></input><br/>
-          <input type="submit" value="Login" disabled={!this.validateForm()} ></input>
+          <input type="submit" value="Login" disabled={!this.validateForm()||this.state.submitted} ></input>
+          {
+      this.state.loading && 
+      <div>loading</div>}
+          {this.state.failed && 
+      <div>Failed</div>}
         </form>
-      </div>
+      </div>)
     );
   }
 }
