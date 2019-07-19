@@ -42,34 +42,35 @@ function getAll() {
     return fetch('http://127.0.0.1:8080/users', requestOptions).then(handleResponse);
 }
 
-function registerHacker(firstname,lastname,email,password,phonenumber,diet,size,pronoun,dob){
+function registerHacker(details){
   var request = {
-    'first_name': firstname,
-    'last_name': lastname,// string
-    'email': email,// string
-    'password': password,// string
+    'first_name': details.firstname,
+    'last_name': details.lastname,// string
+    'email': details.email,// string
+    'password': details.password,// string
     'account_confirmed': false,// bool
     'role': 1,// string, one of Hacker, Exec or Sponsor{1, 2, 3}
     'is_applied': false,// bool
     'confirmed_attending': false,// bool
-    'phone_number': phonenumber,// string
-    'dietary_restrictions': diet,// array of strings
-    'shirt_size': size,// string, one of S, M, L, XL
-    'pronoun': pronoun,// string
-    'dob': dob// date
+    'phone_number': details.phonenumber,// string
+    'dietary_restrictions': details.diet,// array of strings
+    'shirt_size': details.size,// string, one of S, M, L, XL
+    'pronoun': details.pronoun,// string
+    'dob': details.dob// date
   }
-  axios.post('http://127.0.0.1:8080/login', request)
-    .then(handleResponse).then( (response) => {
+  return new Promise((resolve, reject) => {
+  axios.post('http://127.0.0.1:8080/register', request).then(handleResponse)
+    .then( (response) => {
       if (response.data){
-        response.data.email = email
+        response.data.email = details.email
         localStorage.setItem('goldenHackLogin', JSON.stringify(response.data))
       }
-      return response;
+      resolve(response);
     })
     .catch((error) => {
-      return error;
+      reject(error);
     })
-  
+  })
 }
 
 function handleResponse(response) {

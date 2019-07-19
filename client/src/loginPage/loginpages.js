@@ -68,11 +68,12 @@ class LoginPage extends React.Component {
             password <br />
           <input id="password" type="password" onChange={this.handleChange}></input><br/>
           <input type="submit" value="Login" disabled={!this.validateForm()||this.state.submitted} ></input>
-          {
-      this.state.loading && 
-      <div>loading</div>}
+          {this.state.loading && 
+            <div>loading</div>
+          }
           {this.state.failed && 
-      <div>Failed</div>}
+            <div>Failed</div>
+          }
         </form>
       </div>)
     );
