@@ -1,6 +1,5 @@
 import React from "react";
-import { userService } from '../services/user.service';
-import { Redirect } from "react-router-dom";
+import { userService } from "../services/user.service";
 //import "./login.css";
 
 class LoginPage extends React.Component {
@@ -13,7 +12,7 @@ class LoginPage extends React.Component {
       submitted: false,
       loading: false,
       failed: false,
-      loggedIn: false,
+      loggedIn: false
     };
   }
 
@@ -27,55 +26,56 @@ class LoginPage extends React.Component {
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
-    this.setState({ submitted: true,failed: false });
+    this.setState({ submitted: true, failed: false });
     const { email, password, returnUrl } = this.state;
 
     // stop here if form is invalid
     if (!(email && password)) {
-        return;
+      return;
     }
 
     this.setState({ loading: true });
-    userService.login(email, password).then(()=>{  
-      this.setState({
-        submitted: false,
-        loading: false,
-        loggedIn: true,
-        failed: false
+    userService
+      .login(email, password)
+      .then(() => {
+        this.setState({
+          submitted: false,
+          loading: false,
+          loggedIn: true,
+          failed: false
+        });
+      })
+      .catch(() => {
+        this.setState({
+          submitted: false,
+          loading: false,
+          failed: true
+        });
       });
-    }).catch(()=>{
-      this.setState({
-        submitted: false,
-        loading: false,
-        failed: true
-      });
-    });
-
-}
+  };
 
   render() {
     return (
-      this.state.loggedIn ? 
-      (<Redirect to="/"/>) 
-      :
-      (<div className="Login">
+      <div className="Login">
         <form onSubmit={this.handleSubmit}>
-            email <br />
-          <input id="email" type="email" onChange={this.handleChange}></input><br/>
-            password <br />
-          <input id="password" type="password" onChange={this.handleChange}></input><br/>
-          <input type="submit" value="Login" disabled={!this.validateForm()||this.state.submitted} ></input>
-          {this.state.loading && 
-            <div>loading</div>
-          }
-          {this.state.failed && 
-            <div>Failed</div>
-          }
+          email <br />
+          <input id="email" type="email" onChange={this.handleChange} />
+          <br />
+          password <br />
+          <input id="password" type="password" onChange={this.handleChange} />
+          <br />
+          <input
+            type="submit"
+            value="Login"
+            disabled={!this.validateForm() || this.state.submitted}
+          />
+          {this.state.loading && <div>loading</div>}
+          {this.state.failed && <div>Failed</div>}
         </form>
-      </div>)
+      </div>
     );
   }
 }

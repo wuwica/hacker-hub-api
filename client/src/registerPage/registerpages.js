@@ -1,7 +1,7 @@
 import React from "react";
 import { userService } from "../services/user.service";
 import { Redirect } from "react-router-dom";
-//import "./login.css";
+import "../loginPage/login.css";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -84,11 +84,8 @@ class RegisterPage extends React.Component {
 
   render() {
     return (
-      this.state.loggedIn ? 
-      (<Redirect to="/"/>) 
-      :
-      (
       <div className="Register">
+        <div className="FormHeader">REGISTER</div>
         <form onSubmit={this.handleSubmit}>
           Email <br />
           <input
@@ -174,7 +171,6 @@ class RegisterPage extends React.Component {
           {this.state.failed && <div>Failed</div>}
         </form>
       </div>
-      )
     );
   }
 }

@@ -11,47 +11,6 @@ function StaticSite() {
         <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,700,700i" rel="stylesheet" />
         
          {/*<!-- Navbar -->*/}
-         <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="/">
-               <img className="height50" src="img/logo.png" />
-            </a>
-            <button
-               className="navbar-toggler"
-               type="button"
-               data-toggle="collapse"
-               data-target="#navbarSupportedContent"
-               aria-controls="navbarSupportedContent"
-               aria-expanded="false"
-               aria-label="Toggle navigation"
-            >
-               <span className="navbar-toggler-icon" />
-            </button>
-
-            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-               <ul className="navbar-nav ml-auto p-2">
-                  <li className="nav-item">
-                     <a className="nav-link" href="/#about">
-                        About
-              </a>
-                  </li>
-                  <li className="nav-item">
-                     <a className="nav-link" href="/#sponsors">
-                        Sponsors
-              </a>
-                  </li>
-                  {/*<li className="nav-item">
-                     <a className="nav-link" href="/#faq">
-                        FAQ
-              </a>
-                  </li>
-                  <li className="nav-item">
-                     <a className="nav-link" href="/#join">
-                        Join Us
-              </a>
-                  </li>*/}
-               </ul>
-            </div>
-         </nav>
 
          {/*<!-- Header -->*/}
          <section className="container marginTop20 height20vh">

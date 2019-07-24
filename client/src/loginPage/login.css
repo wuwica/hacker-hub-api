@@ -1,0 +1,34 @@
+.LoginCard{
+    display:flex;
+    flex-direction: column;
+    background: #2F2E41;
+    padding: 30px;
+    color: #fefefe;
+}
+
+.FormHeader{
+    text-align: center;
+    padding: 0 0 20px 0;
+    letter-spacing: 3px;
+}
+.Register{
+
+}
+
+#LoginRegisterToggle{
+    display: flex;
+    justify-content: space-between
+}
+
+.LoginContainer{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff4d1;
+
+  }
