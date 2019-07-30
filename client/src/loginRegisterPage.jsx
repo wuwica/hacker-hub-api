@@ -1,5 +1,4 @@
 import React from "react";
-import { userService } from "./services/user.service";
 import { Redirect } from "react-router-dom";
 import { BrowserRouter as Router,Route,Link } from "react-router-dom";
 import "./loginPage/login.css";
@@ -8,10 +7,6 @@ import LoginPage from "./loginPage/loginpages";
 import RegisterPage from "./registerPage/registerpages";
 
 class LoginRegisterPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return authHeader() ? (
       <Redirect to="/" />

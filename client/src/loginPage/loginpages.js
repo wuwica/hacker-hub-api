@@ -30,7 +30,7 @@ class LoginPage extends React.Component {
     e.preventDefault();
 
     this.setState({ submitted: true, failed: false });
-    const { email, password, returnUrl } = this.state;
+    const { email, password} = this.state;
 
     // stop here if form is invalid
     if (!(email && password)) {

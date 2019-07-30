@@ -76,7 +76,7 @@ function registerHacker(details){
 function handleResponse(response) {
   return new Promise((resolve,reject) => {
     const data = response;
-    if (!response.statusText == 'ok') {
+    if (!response.statusText === 'ok') {
         if (response.status === 401) {
             // auto logout if 401 response returned from api
             logout();
