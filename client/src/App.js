@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import StaticSite from "./staticPage/staticHTMLsite";
 import LoginRegisterPage from "./loginRegisterPage";
 import ApplicaitonPage from "./applicationPage/applicationpages"
+import ForgotPasswordPage from './loginPage/forgotpassword'
 
 class App extends React.Component {
   componentDidMount() {}
@@ -56,6 +57,7 @@ class App extends React.Component {
           <Route path="/" exact component={StaticSite} />
           <Route path="/application" exact component={ApplicaitonPage} />
           <Route path="/(login|register)" exact component={LoginRegisterPage} />
+          <Route path='/password/reset/:token' component={ForgotPasswordPage} />
         </div>
       </Router>
     );

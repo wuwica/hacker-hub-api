@@ -44,7 +44,12 @@ class ApplicationPage extends React.Component {
       this.setState({
         [event.target.id]: mutliselect
       });
-    } else {
+    } else if (event.target.files){
+      this.setState({
+        [event.target.id]: event.target.files[0]
+      });
+    }
+    else {
       this.setState({
         [event.target.id]: event.target.value
       });
@@ -297,9 +302,11 @@ class ApplicationPage extends React.Component {
           <input
             type="file"
             id="resume"
+            onChange={this.handleChange}
             name="resume"
             accept=".doc,.docx,.pdf"
           />
+          <br />
           <input
             type="submit"
             value="Login"
