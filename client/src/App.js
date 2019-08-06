@@ -9,6 +9,12 @@ import ForgotPasswordPage from './loginPage/forgotpassword'
 class App extends React.Component {
   componentDidMount() {}
 
+  reset_token = () =>{
+      // remove user from local storage to log user out
+      console.log("removed key")
+      localStorage.removeItem('goldenHackLogin');
+  }
+
   render() {
     return (
       <Router>
@@ -53,10 +59,11 @@ class App extends React.Component {
               </ul>
             </div>
           </nav>
+          <div onClick={this.reset_token}> click </div>
 
           <Route path="/" exact component={StaticSite} />
           <Route path="/application" exact component={ApplicaitonPage} />
-          <Route path="/(login|register)" exact component={LoginRegisterPage} />
+          <Route exact path="/(login|register)" component={LoginRegisterPage} />
           <Route path='/password/reset/:token' component={ForgotPasswordPage} />
         </div>
       </Router>

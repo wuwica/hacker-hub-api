@@ -1,7 +1,7 @@
 .LoginCard{
     display:flex;
     flex-direction: column;
-    background: #2F2E41;
+    background: #F2F2F2;
     padding: 30px;
     color: #fefefe;
 }
@@ -29,6 +29,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff4d1;
+    background: #F2F2F2;
 
-  }
+}
+
+.Single-Item-Center{
+    margin-top: 30px;
+    display:flex;
+    justify-content: center;
+}
+
+.User-Form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

@@ -1,5 +1,7 @@
 import React from "react";
 import { userService } from "../services/user.service";
+import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
 //import "./login.css";
 
 class LoginPage extends React.Component {
@@ -30,7 +32,7 @@ class LoginPage extends React.Component {
     e.preventDefault();
 
     this.setState({ submitted: true, failed: false });
-    const { email, password} = this.state;
+    const { email, password } = this.state;
 
     // stop here if form is invalid
     if (!(email && password)) {
@@ -60,20 +62,33 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          email <br />
-          <input id="email" type="email" onChange={this.handleChange} />
-          <br />
-          password <br />
-          <input id="password" type="password" onChange={this.handleChange} />
-          <br />
-          <input
-            type="submit"
-            value="Login"
-            disabled={!this.validateForm() || this.state.submitted}
+        <form onSubmit={this.handleSubmit} className={"User-Form"}>
+          <TextField
+            id="email"
+            type="email"
+            label="Email"
+            onChange={this.handleChange}
+            margin="normal"
           />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+            onChange={this.handleChange}
+          />
+          <div className={"Single-Item-Center"}>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={!this.validateForm() || this.state.submitted}
+          >
+            Login
+          </Button>
           {this.state.loading && <div>loading</div>}
           {this.state.failed && <div>Failed</div>}
+          </div>
         </form>
       </div>
     );

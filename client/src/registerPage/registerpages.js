@@ -1,6 +1,8 @@
 import React from "react";
 import { userService } from "../services/user.service";
 import "../loginPage/login.css";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -40,12 +42,12 @@ class RegisterPage extends React.Component {
     var patt = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8}$");
 
     // stop here if form is invalid
-    if (patt.test(password)){
+    if (patt.test(password)) {
       this.setState({ submitted: false, failed: "Password not secure enough" });
       return;
     }
 
-    if (password !== password2){
+    if (password !== password2) {
       this.setState({ submitted: false, failed: "Password doesnt match" });
       return;
     }
@@ -81,39 +83,43 @@ class RegisterPage extends React.Component {
   render() {
     return (
       <div className="Register">
-        <div className="FormHeader">REGISTER</div>
-        <form onSubmit={this.handleSubmit}>
-          Email <br />
-          <input
+        <form onSubmit={this.handleSubmit} className={"User-Form"}>
+          <TextField
             id="email"
-            value={this.state.email}
             type="email"
+            label="Email"
+            value={this.state.email}
             onChange={this.handleChange}
+            margin="normal"
           />
-          <br />
-          Password <br />
-          <input
+          <TextField
             id="password"
-            value={this.state.password}
+            label="Password"
             type="password"
+            autoComplete="current-password"
+            value={this.state.password1}
+            margin="normal"
             onChange={this.handleChange}
           />
-          <br />
-          Confirm Password <br />
-          <input
+          <TextField
             id="password2"
-            value={this.state.password2}
+            label="Confirm Password"
             type="password"
+            value={this.state.password2}
+            margin="normal"
             onChange={this.handleChange}
           />
-          <br />
-          <input
-            type="submit"
-            value="Register"
-            disabled={!this.validateForm() || this.state.submitted}
-          />
-          {this.state.loading && <div>loading</div>}
-          {this.state.failed && <div>Failed</div>}
+          <div className="Single-Item-Center">
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={!this.validateForm() || this.state.submitted}
+            >
+              Register
+            </Button>
+            {this.state.loading && <div>loading</div>}
+            {this.state.failed && <div>Failed</div>}
+          </div>
         </form>
       </div>
     );
